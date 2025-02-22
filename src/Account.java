@@ -9,7 +9,7 @@ public class Account {
     public void deposit(double amount){
         if(amount>0){
             balance += amount;
-            System.out.println("$" + amount+ "deposited successfully.");
+            System.out.println("$" + amount+ "deposited successfullyy.");
         }else{
             System.out.println("Invalid amount");
         }
