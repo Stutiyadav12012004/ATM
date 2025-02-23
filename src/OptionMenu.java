@@ -196,7 +196,7 @@ public class OptionMenu {
         boolean end = false;
         while(!end) {
             try {
-                System.out.println("\n Checking Account ");
+                System.out.println("\n Current Account ");
                 System.out.println("\n Type 1 - View Balance ");
                 System.out.println("\n Type 2 - Withdraw Funds");
                 System.out.println("\n Type 3 - Deposit Funds");
@@ -208,10 +208,66 @@ public class OptionMenu {
 
                 switch(choice){
                     case 1:
-                        System.out.print("\n Ch ");
+                        System.out.print("\n Checking Account Balance: " + moneyFormat.format(acc.getCurrentBalance()));
+                        break;
+                    case 2:
+                        acc.getCurrentWithdrawInput();
+                        break;
+                    case 3:
+                        acc.getCurrentDepositInput();
+                        break;
+                    case 4:
+                        acc.getTransferInput("Current");
+                        break;
+                    case 5:
+                        end = true;
+                        break;
+                    default:
+                        System.out.print("\n Invalid Choice ");
                 }
+            } catch(InputMismatchException e ){
+                System.out.print("\n Invalid Choice ");
+                menuInput.next();
+            }
+        }
+    }
 
+    public void getSaving(Account acc){
+        boolean end = false;
+        while(!end) {
+            try {
+                System.out.println("\n Saving Account ");
+                System.out.println("\n Type 1 - View Balance ");
+                System.out.println("\n Type 2 - Withdraw Funds");
+                System.out.println("\n Type 3 - Deposit Funds");
+                System.out.println("\n Type 4 - Transfer Funds");
+                System.out.println("\n Type 5 - Exit");
+                System.out.print("\n Choice: ");
 
+                int choice = menuInput.nextInt();
+
+                switch(choice){
+                    case 1:
+                        System.out.print("\n Savings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
+                        break;
+                    case 2:
+                        acc.getSavingWithdrawInput();
+                        break;
+                    case 3:
+                        acc.getSavingDepositInput();
+                        break;
+                    case 4:
+                        acc.getSavingInput("Current");
+                        break;
+                    case 5:
+                        end = true;
+                        break;
+                    default:
+                        System.out.print("\n Invalid Choice ");
+                }
+            } catch(InputMismatchException e ){
+                System.out.print("\n Invalid Choice ");
+                menuInput.next();
             }
         }
     }
