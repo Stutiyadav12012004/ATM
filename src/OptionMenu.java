@@ -257,7 +257,7 @@ public class OptionMenu {
                         acc.getSavingDepositInput();
                         break;
                     case 4:
-                        acc.getSavingInput("Current");
+                        acc.getTransferInput("Saving");
                         break;
                     case 5:
                         end = true;

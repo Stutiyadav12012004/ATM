@@ -87,6 +87,174 @@ public class Account{
             savingBalance += isDeposit ? amount : -amount;
         }
     }
+    public double calcCurrentWithdraw(double amount) {
+        currentBalance = (currentBalance - amount);
+        return currentBalance;
+    }
+    public double calcSavingWithdraw(double amount) {
+        savingBalance = (savingBalance - amount);
+        return savingBalance;
+    }
+    public double calcCurrentDeposit(double amount) {
+        currentBalance = (currentBalance + amount);
+        return currentBalance;
+    }
+    public double calcSavingDeposit(double amount) {
+        savingBalance = (savingBalance + amount);
+        return savingBalance;
+    }
+    public void calcCheckTransfer(double amount) {
+        currentBalance = currentBalance - amount;
+        savingBalance = savingBalance + amount;
+    }
+    public void calcSavingTransfer(double amount) {
+        currentBalance = currentBalance + amount;
+        savingBalance = savingBalance - amount;
+    }
+    public void getCurrentWithdrawInput() {
+       boolean end  = false;
+       while(!end){
+           try{
+               System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+               System.out.println("\n Amount you want to withdraw from Current account");
+               double amount = input.nextDouble();
+               if((currentBalance - amount) >= 0 && amount >= 0) {
+                   calcCurrentWithdraw(amount);
+                   System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+                   end = true;
+               }else{
+                   System.out.println("\n Balance cannot be negative. ");
+               }
+           } catch (InputMismatchException e){
+               System.out.println("\n Invalid choice. ");
+               input.next();
+           }
+       }
+    }
+    public void getSavingWithdrawInput() {
+        boolean end  = false;
+        while(!end){
+            try{
+                System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                System.out.println("\n Amount you want to withdraw from Saving account");
+                double amount = input.nextDouble();
+                if((savingBalance - amount) >= 0 && amount >= 0) {
+                    calcSavingWithdraw(amount);
+                    System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                    end = true;
+                }else{
+                    System.out.println("\n Balance cannot be negative. ");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("\n Invalid choice. ");
+                input.next();
+            }
+        }
+    }
+    public void getCurrentDepositInput() {
+        boolean end  = false;
+        while(!end){
+            try{
+                System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+                System.out.println("\n Amount you want to deposit from Current account");
+                double amount = input.nextDouble();
+                if((currentBalance + amount) >= 0 && amount >= 0) {
+                    calcCurrentDeposit(amount);
+                    System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+                    end = true;
+                }else{
+                    System.out.println("\n Balance cannot be negative. ");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("\n Invalid choice. ");
+                input.next();
+            }
+        }
+    }
+    public void getSavingDepositInput() {
+        boolean end  = false;
+        while(!end){
+            try{
+                System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                System.out.println("\n Amount you want to deposit from Saving account");
+                double amount = input.nextDouble();
+                if((savingBalance + amount) >= 0 && amount >= 0) {
+                    calcSavingDeposit(amount);
+                    System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                    end = true;
+                }else{
+                    System.out.println("\n Balance cannot be negative. ");
+                }
+            } catch (InputMismatchException e){
+                System.out.println("\n Invalid choice. ");
+                input.next();
+            }
+        }
+    }
+    public void getTransferInput(String accType) {
+        boolean end = false;
+        while (!end) {
+            try {
+                if (accType.equals("Current")) {
+                    System.out.println("\n Select an account you wish to transfers funds to: ");
+                    System.out.println("1. Savings");
+                    System.out.println("\n2. Exit");
+                    System.out.println("\n Choice");
+                    int choice = input.nextInt();
+                    switch (choice) {
+                        case 1:
+                            System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+                            System.out.println("\n Amount you want to deposit into your Savings Account: ");
+                            double amount = input.nextDouble();
+                            if ((savingBalance + amount) >= 0 && (currentBalance - amount) >= 0 && amount >= 0) {
+                                calcCheckTransfer(amount);
+                                System.out.println("\n Saving Account Balance: " + moneyFormat.format(savingBalance));
+                                System.out.println("\n Current Account Balance: " + moneyFormat.format(currentBalance));
+                                end = true;
+                            } else {
+                                System.out.println("\n Balance cannot be negative. ");
+                            }
+                            break;
+                        case 2:
+                            return;
+                        default:
+                            System.out.println("\n Invalid Choice. ");
+                            break;
+                    }
+                } else if (accType.equals("Saving")) {
+                    System.out.println("\n Select an account you wish to transfers funds to: ");
+                    System.out.println("1. Current");
+                    System.out.println("\n2. Exit");
+                    System.out.println("\n Choice");
+                    int choice = input.nextInt();
+                    switch (choice) {
+                        case 1:
+                            System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                            System.out.println("\n Amount you want to deposit into your Savings Account: ");
+                            double amount = input.nextDouble();
+                            if ((currentBalance + amount) >= 0 && (savingBalance - amount) >= 0 && amount >= 0) {
+                                calcSavingTransfer(amount);
+                                System.out.println("\n Saving Account Balance: " + moneyFormat.format(currentBalance));
+                                System.out.println("\n Current Account Balance: " + moneyFormat.format(savingBalance));
+                                end = true;
+                            } else {
+                                System.out.println("\n Balance cannot be negative. ");
+                            }
+                            break;
+                        case 2:
+                            return;
+                        default:
+                            System.out.println("\n Invalid Choice. ");
+                            break;
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\n Invalid Choice. ");
+                input.next();
+            }
+        }
+
+    }
 }
 
 
